@@ -1,0 +1,49 @@
+body {
+  padding:0;
+  margin:0;
+  background-color:rgb(0, 143, 148);
+}
+
+.todo {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #525252;
+  font-family: cursive;
+  font-size: 24px;
+  margin: 20px;
+  box-shadow: black 4px 4px 12px;
+  display: block;
+  float: left;
+  color: #3a315f;
+}
+
+.todo:hover {
+  transform: scale(1.4) !important;
+}
+
+.todo:nth-child(even) {
+  transform: rotate(5deg);
+}
+
+.todo:nth-child(odd) {
+  transform: rotate(-5deg);
+}
+
+.state-pending,.state-waiting {
+  background-color:red;
+}
+
+.state-loading {
+  background-color:yellow;
+}
+
+.state-compiling {
+  background-color:orange;
+}
+
+.state-ready {
+  background-color:green;
+}
