@@ -1,7 +1,4 @@
-import { produce, setAutoFreeze } from 'immer';
 import getChild from './get-Child';
-
-setAutoFreeze(false); // for performance
 
 const test = window.test;
 
@@ -16,12 +13,11 @@ export default React => {
     constructor(props) {
       super(props);
       this.state = { data: latestState };
+      const { stateManager } = this.props;
   
       test.dispatch = action => {
         // produce new state
-        latestState = produce(latestState, draft => {
-          test.reducer(draft, action);
-        });
+        latestState = stateManager(latestState, test.reducer, action);
         if (setState && !setStateImmediate) { // avail globally
           setStateImmediate = setImmediate(() => {
             setStateImmediate = null;
@@ -43,7 +39,8 @@ export default React => {
     }
 
     render() {
-      const children = this.state.data.map((el, index) => React.createElement(Child, { el, index }));
+      const { useSafeWord } = this.props;
+      const children = this.state.data.map((el, index) => React.createElement(Child, { el, useSafeWord, index }));
   
       return React.createElement('div', {}, children);
     }

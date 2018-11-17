@@ -14,8 +14,8 @@ for (let i = 0; i < CHILD_COUNT; i++) {
     originalIndex: i,
     index: i,
     modules: [`/api/dummy.cjs?sizeKB=${(i % UNIQUE_MODULES) + MIN_KB}`],
-    text: (me, { loadState }) => `TODO #${me.originalIndex} is ${loadState || 'unkonwn'}`
+    text: (me, { loadState }) => `TODO #${me.originalIndex} is ${loadState || 'unknown'}`
   });
 }
 
-module.exports = todos;
+export default todos;

@@ -22,9 +22,9 @@ export default React => {
         test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.READY });
       } else {
         test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.LOADING });
-        loadStuff(el.modules).then(stuff => {
+        loadStuff(el.modules, el.useSafeWord).then(stuff => {
           test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.COMPILING });
-          compileStuff(stuff).then(() => test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.READY }));
+          compileStuff(stuff, el.useSafeWord).then(() => test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.READY }));
         });
       }
     }

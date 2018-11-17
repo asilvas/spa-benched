@@ -11,8 +11,8 @@ for (let i = 0; i < CHILD_COUNT; i++) {
     props: me => ({ index: me.index }),
     originalIndex: i,
     index: i,
-    text: me => `TODO #${me.originalIndex} is ${me.loadState || 'unkonwn'}`
+    text: me => `TODO #${me.originalIndex} is ${me.loadState || 'unknown'}`
   });
 }
 
-module.exports = todos;
+export default todos;

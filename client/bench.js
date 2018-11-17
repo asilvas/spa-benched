@@ -23,10 +23,14 @@ window.benchApp = benchApp;
 window.benchMark = benchMark;
 window.benchNextStep = benchNextStep;
 
+let test;
+
 const html = document.getElementsByTagName('html')[0];
 
 function benchApp() {
   // load the benchmark app
+
+  test = window.test;
 
   const query = /\?(.*?)$/.exec(document.location.href);
   const querySplit = query && query[1].split('&');
@@ -43,6 +47,8 @@ function benchApp() {
   appScript.src = `/apps/${bench.app}/app.js`;
 
   html.appendChild(appScript);
+
+  setImmediate(benchNextStep);
 }
 
 function benchMark(eventName) {
@@ -94,7 +100,7 @@ function benchNextStep() {
 
       for (let eli = 0; eli < els.length; eli++) {
         if (!verify.test(els[eli])) {
-          //if (bench.resumeVerifyIndex === null) console.warn(`Unable to verify ${step.onComplete}, step ${bench.step}. Will keep trying until satisified`);
+          if (bench.resumeVerifyIndex === null) console.warn(`Unable to verify ${step.onComplete}, step ${bench.step}. Will keep trying until satisified`);
           bench.resumeVerifyIndex = i;
           return void setImmediate(benchNextStep); // try again later, but not as aggressive as setImmediate
         }
@@ -111,7 +117,7 @@ function benchNextStep() {
     return;
   }
 
-  setImmediate(window.test.dispatch.bind(window.test, { type: step.onComplete, step: bench.step - 1 }));
+  setImmediate(test.dispatch.bind(window.test, { type: step.onComplete, step: bench.step - 1 }));
   setImmediate(benchNextStep);
 }
 
@@ -119,8 +125,6 @@ function benchNextStep() {
 (() => {
 
   monitorFramerate();
-
-  setImmediate(benchNextStep);
 
 })();
 

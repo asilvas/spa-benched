@@ -21,7 +21,7 @@ async function main() {
 
   server.listen(13337);
 
-  console.log('http://localhost:13337/');
+  console.log('https://localhost:13337/');
 
 }
 
