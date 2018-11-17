@@ -15,7 +15,7 @@ for (let i = 0; i < CHILD_COUNT; i++) {
     originalIndex: i,
     index: i,
     blob: extend(true, [], blob),
-    text: me => `#${me.id} ${me.blob[me.originalIndex % me.blob.length].name} is ${me.loadState || 'unknown'}`
+    text: me => `${me.blob[me.originalIndex % me.blob.length].name} is ${me.loadState || 'unknown'}`
   });
 }
 
