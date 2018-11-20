@@ -12,6 +12,6 @@ const stateManager = (latestState, reducer, action) => produce(latestState, draf
 });
 
 // legacy React
-ReactDOM.render(createElement(App, { useSafeWord: true, stateManager }), document.body);
+ReactDOM.render(createElement(App, { useSafeWord: true, stateManager }), document.getElementById('app'));
 // concurrent React (not sure why I'm seeing `didTimeout` errors)
-//ReactDOM.createRoot(document.body).render(createElement(App));
+//ReactDOM.createRoot(document.getElementById('app')).render(createElement(App));

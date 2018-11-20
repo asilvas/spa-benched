@@ -1,0 +1,36 @@
+{
+  "apps": [
+    {
+      "name": "wp-inferno-immer"
+    },
+    {
+      "name": "wp-preact-copy"
+    },
+    {
+      "name": "wp-preact-immer"
+    },
+    {
+      "name": "wp-react"
+    },
+    {
+      "name": "wp-react-copy"
+    },
+    {
+      "name": "wp-react-immer"
+    },
+    {
+      "name": "wp-react-immer-v2"
+    }
+  ],
+  "tests": [
+    {
+      "name": "big-state"
+    },
+    {
+      "name": "todo"
+    },
+    {
+      "name": "todo-deps"
+    }
+  ]
+}

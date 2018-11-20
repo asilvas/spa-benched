@@ -4,7 +4,7 @@ module.exports.init = app => {
 
   app.use((ctx, next) => {
 
-    if (ctx.path === '/') return void ctx.redirect('/ui');
+    if (ctx.path === '/') return void ctx.redirect('/client/ui.html');
 
     next();
 

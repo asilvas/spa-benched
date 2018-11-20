@@ -1,3 +1,4 @@
+const MAX_FRAME_MSEC = Math.round(1000 / 60); // ms/sec / Hz
 const MAX_FRAMES = 60 /* typical max Hz */ * 60 /* seconds/min */ * 1.0 /* mins */;
 
 const LOAD_STATES = {
@@ -13,7 +14,7 @@ const bench = {
   running: true,
   resumeVerifyIndex: null,
   step: 0,
-  fps: { frames: [], lastTick: performance.now() },
+  fps: { frames: [], lastTick: 0 },
   marks: {},
   LOAD_STATES
 };
@@ -54,24 +55,28 @@ function benchApp() {
 function benchMark(eventName) {
   const time = performance.now();
 
+  bench.fps.frames.push({ time, duration:  Math.max(time - bench.fps.lastTick, MAX_FRAME_MSEC) });
+  bench.fps.lastTick = time;
   const frames = bench.fps.frames.slice(); // copy
-  frames.sort((a, b) => a.time < b.time ? -1 : 1);
+  frames.sort((a, b) => a.duration < b.duration ? -1 : 1);
 
-  const medianFrame = frames[Math.floor(frames.length / 2)];
+  const medianFrame = frames.length > 0 && frames[Math.floor(frames.length / 2)];
 
   const props = {
-    frameRate: frames.length / (time / 1000),
-    frameRateMedian: 1000 / medianFrame.time,
-    frameRate99th: 1000 / frames[Math.floor(frames.length * 0.99)].time
+    frameRate: frames.length > 0 ? frames.length / (time / 1000) : 0,
+    frameRateMedian: frames.length > 0 ? 1000 / medianFrame.duration : 0,
+    frameRate99th: frames.length > 0 ? 1000 / frames[Math.floor(frames.length * 0.99)].duration : 0
   };
 
-  const slowFrames = frames.filter(f => f.time > (medianFrame.time * 1.1));
+  const slowFrames = frames.filter(f => f.duration > (medianFrame.duration * 1.1));
   props.slowFramesRate = (slowFrames.length / frames.length) * 100;
 
   const mark = bench.marks[eventName] = {
     ...props,
     time
   }
+
+  parent.postMessage({ action: { type: eventName, bench: { marks: bench.marks, frames: eventName === 'COMPLETE' ? bench.fps.frames : undefined } } }, '*');
 
   console.log(`benchMark: ${eventName} in ${Math.round(mark.time)}ms`, props);
 }
@@ -100,7 +105,7 @@ function benchNextStep() {
 
       for (let eli = 0; eli < els.length; eli++) {
         if (!verify.test(els[eli])) {
-          if (bench.resumeVerifyIndex === null) console.warn(`Unable to verify ${step.onComplete}, step ${bench.step}. Will keep trying until satisified`);
+          //if (bench.resumeVerifyIndex === null) console.warn(`Unable to verify ${step.onComplete}, step ${bench.step}. Will keep trying until satisified`);
           bench.resumeVerifyIndex = i;
           return void setImmediate(benchNextStep); // try again later, but not as aggressive as setImmediate
         }
@@ -132,17 +137,20 @@ function monitorFramerate() {
   const { fps } = bench;
 
   const cb = () => {
+    const now = performance.now();
+
     fps.frames.push({
-      time: performance.now() - fps.lastTick
+      time: now,
+      duration: Math.max(now - fps.lastTick, MAX_FRAME_MSEC)
     });
 
-    if (!bench.running || fps.frames.length > MAX_FRAMES) return;
+    fps.lastTick = now;
 
-    fps.lastTick = performance.now();
+    if (!bench.running || fps.frames.length > MAX_FRAMES) return;
 
     // check again next frame
     requestAnimationFrame(cb);
   };
 
-  requestAnimationFrame(cb);
+  requestAnimationFrame(cb, 0);
 }
