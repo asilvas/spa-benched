@@ -4,6 +4,9 @@
       "name": "wp-inferno-immer"
     },
     {
+      "name": "wp-lit-html-immer"
+    },
+    {
       "name": "wp-preact-copy"
     },
     {
