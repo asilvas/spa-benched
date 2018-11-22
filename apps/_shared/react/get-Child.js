@@ -6,7 +6,7 @@ const bench = window.bench;
 const { LOAD_STATES } = bench;
 
 export default React => {
-  return function Child({ el, index }) {
+  return function Child({ el, index, useSafeWord, usePriority, limit = 2 }) {
     const loadState = el.loadState;
     const inner = el.text(el, { loadState });
     const className = el.classes(el, { loadState });
@@ -22,9 +22,9 @@ export default React => {
         test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.READY });
       } else {
         test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.LOADING });
-        loadStuff(el.modules, el.useSafeWord).then(stuff => {
+        loadStuff(el.modules, { useSafeWord, usePriority, priority: el.priority, limit }).then(stuff => {
           test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.COMPILING });
-          compileStuff(stuff, el.useSafeWord).then(() => test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.READY }));
+          compileStuff(stuff, { useSafeWord, usePriority, priority: el.priority, limit }).then(() => test.dispatch({ type: 'LOAD_STATE', el, index, loadState: LOAD_STATES.READY }));
         });
       }
     }

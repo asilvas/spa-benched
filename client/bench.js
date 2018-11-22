@@ -122,7 +122,9 @@ function benchNextStep() {
     return;
   }
 
-  setImmediate(test.dispatch.bind(window.test, { type: step.onComplete, step: bench.step - 1 }));
+  if (step.onComplete) {
+    setImmediate(test.dispatch.bind(window.test, { type: step.onComplete, step: bench.step - 1 }));
+  }
   setImmediate(benchNextStep);
 }
 

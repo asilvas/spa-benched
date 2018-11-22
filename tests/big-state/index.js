@@ -31,9 +31,6 @@ export default {
         draft.forEach(todo => { todo.index = (todo.index + 1) % draft.length })
         draft.sort(sortByIndex);
       break;
-      case 'VISUAL_COMPLETE':
-        benchMark('VISUAL_COMPLETE');
-      break;
       case 'LOAD_STATE':
         draft[action.index].loadState = action.loadState;
       break;

@@ -13,6 +13,9 @@
       "name": "wp-preact-immer"
     },
     {
+      "name": "wp-preact-immer-priority"
+    },
+    {
       "name": "wp-react"
     },
     {
@@ -34,6 +37,9 @@
     },
     {
       "name": "todo-deps"
+    },
+    {
+      "name": "todo-deps-priority"
     }
   ]
 }

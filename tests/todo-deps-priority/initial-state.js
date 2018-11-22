@@ -8,7 +8,7 @@ const MIN_KB = 50;
 for (let i = 0; i < CHILD_COUNT; i++) {
   todos.push({
     id: `id${i}`,
-    priority: 0,
+    priority: i,
     tag: 'div',
     loadState: 'Pending',
     classes: (me, { loadState }) => `todo state-${loadState.toLowerCase()}`,

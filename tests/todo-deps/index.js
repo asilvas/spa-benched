@@ -31,9 +31,6 @@ export default {
         draft.forEach(todo => { todo.index = (todo.index + 1) % draft.length })
         draft.sort(sortByIndex);
       break;
-      case 'VISUAL_COMPLETE':
-        benchMark('VISUAL_COMPLETE');
-      break;
       case 'LOAD_STATE':
         // this is horrible O(N), but was necessary as < 1% of the time we could not rely on index for reasons unknown
         const el = draft.find(e => e.id === action.el.id);
@@ -41,7 +38,7 @@ export default {
         //draft[action.index].loadState = action.loadState;
       break;
       default:
-        console.warn(`Unrocognized action: ${action.type}`);
+        console.warn(`Unrocognized action: ${action}`);
     }
   }
 };
