@@ -37,7 +37,7 @@ test.dispatch = action => {
 const appEl = document.getElementById('app');
 
 function main() {
-  render(App({ useSafeWord: true, state: { data: latestState } }), appEl);
+  render(App({ state: { data: latestState } }), appEl);
 }
 
 main();

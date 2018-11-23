@@ -10,4 +10,4 @@ const stateManager = (latestState, reducer, action) => produce(latestState, draf
   reducer(draft, action);
 });
 
-render(createElement(App, { useSafeWord: true, usePriority: true, limit: 2, stateManager }), document.getElementById('app'));
+render(createElement(App, { usePriority: true, limit: 2, stateManager }), document.getElementById('app'));

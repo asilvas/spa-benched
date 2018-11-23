@@ -10,4 +10,4 @@ const stateManager = (latestState, reducer, action) => produce(latestState, draf
   reducer(draft, action);
 });
 
-render(createElement(App, { useSafeWord: true, stateManager }), document.getElementById('app'));
+render(createElement(App, { stateManager }), document.getElementById('app'));

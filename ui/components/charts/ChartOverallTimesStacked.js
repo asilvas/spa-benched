@@ -5,11 +5,16 @@ import chartistTooltip from 'chartist-plugin-tooltips-updated';
 
 export default ({ results }) => {
   useEffect(() => {
+    const appTimes = results.reduce((state, r) => {
+      state[r.app.name].totalTime += r.bench.marks['COMPLETE'].time;
+      return state;
+    }, benchData.apps.reduce((state, app) => { state[app.name] = { totalTime: 0 }; return state; }, {}));
+
     const series = benchData.tests.map(t => {
       // each row is one test
       return results
         .filter(result => result.test.name === t.name)
-        .sort((a, b) => a.app.name < b.app.name ? -1 : 1)
+        .sort((a, b) => a.app.name === b.app.name ? 0 : appTimes[a.app.name].totalTime < appTimes[b.app.name].totalTime ? -1 : 1) // SLOWEST FIRST
         .map(result => ({
           meta: `App: ${result.app.name}, Test: ${result.test.name}`, value: result.bench.marks['COMPLETE'].time / 1000
         })
@@ -17,7 +22,7 @@ export default ({ results }) => {
     });
 
     const chartData = {
-      labels: benchData.apps.map(t => t.name).sort(), // alpha
+      labels: benchData.apps.sort((a, b) => appTimes[a.name].totalTime < appTimes[b.name].totalTime ? -1 : 1).map(a => a.name), // SLOWEST FIRST
       series
     };
 

@@ -10,4 +10,4 @@ const stateManager = (latestState, reducer, action) => {
   return draft; // state is mutated in-place, but not returned
 }
 
-render(createElement(App, { useSafeWord: true, stateManager }), document.body);
+render(createElement(App, { stateManager }), document.body);

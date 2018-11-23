@@ -15,8 +15,8 @@
   "dependencies": {
     "immer": "^1.7.4",
     "p-limit": "^2.0.0",
-    "react": "^16.7.0-alpha.0",
-    "react-dom": "^16.7.0-alpha.0"
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",

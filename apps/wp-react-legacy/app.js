@@ -10,6 +10,6 @@ const stateManager = (latestState, reducer, action) => {
 }
 
 // legacy React
-//ReactDOM.render(createElement(App, { stateManager }), document.getElementById('app'));
+ReactDOM.render(createElement(App, { stateManager }), document.getElementById('app'));
 // concurrent React
-ReactDOM.createRoot(document.getElementById('app')).render(createElement(App, { stateManager }));
+//ReactDOM.createRoot(document.getElementById('app')).render(createElement(App, { stateManager }));

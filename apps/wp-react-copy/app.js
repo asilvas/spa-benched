@@ -1,5 +1,5 @@
 import React, { createElement } from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import getApp from '../_shared/react/get-App';
 import extend from 'extend';
 
@@ -12,6 +12,6 @@ const stateManager = (latestState, reducer, action) => {
 }
 
 // legacy React
-render(createElement(App, { useSafeWord: false, stateManager }), document.getElementById('app'));
-// concurrent React (not sure why I'm seeing `didTimeout` errors)
-//ReactDOM.createRoot(document.getElementById('app')).render(createElement(App));
+//ReactDOM.render(createElement(App, { stateManager }), document.getElementById('app'));
+// concurrent React
+ReactDOM.createRoot(document.getElementById('app')).render(createElement(App, { stateManager }));

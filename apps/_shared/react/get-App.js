@@ -39,7 +39,7 @@ export default React => {
     }
 
     render() {
-      const { useSafeWord, usePriority, limit } = this.props;
+      const { useSafeWord = true, usePriority, limit } = this.props;
       const children = this.state.data.map((el, index) => React.createElement(Child, { el, useSafeWord, usePriority, limit, index }));
   
       return React.createElement('div', {}, children);
