@@ -27,8 +27,6 @@ function shiftIndexes(times, offset = 0, negative = false) {
 export default {
   initialState,
   states: [
-    //...shiftIndexes(50),
-    //...shiftIndexes(50, 50, true),
     { verify: [{ match: '#id0', test: el => el.attributes.class.nodeValue === `todo state-ready` }] },
     { verify: [{ match: '#id1', test: el => el.attributes.class.nodeValue === `todo state-ready` }] },
     { verify: [{ match: '#id2', test: el => el.attributes.class.nodeValue === `todo state-ready` }] },
