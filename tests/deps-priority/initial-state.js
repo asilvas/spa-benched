@@ -2,7 +2,7 @@ const todos = [];
 
 const CHILD_COUNT = 200;
 const UNIQUE_MODULES = 50;
-const KB_MOD = 3;
+const KB_MOD = 5;
 const MIN_KB = 50;
 
 for (let i = 0; i < CHILD_COUNT; i++) {
