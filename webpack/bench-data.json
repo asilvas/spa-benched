@@ -1,31 +1,28 @@
 {
   "apps": [
     {
-      "name": "wp-inferno-immer"
+      "name": "inferno-immer"
     },
     {
-      "name": "wp-lit-html-immer"
+      "name": "lit-html-immer"
     },
     {
-      "name": "wp-preact-copy"
+      "name": "preact"
     },
     {
-      "name": "wp-preact-immer"
+      "name": "preact-immer"
     },
     {
-      "name": "wp-preact-immer-priority"
+      "name": "preact-immer-priority"
     },
     {
-      "name": "wp-react"
+      "name": "react"
     },
     {
-      "name": "wp-react-copy"
+      "name": "react-immer"
     },
     {
-      "name": "wp-react-immer"
-    },
-    {
-      "name": "wp-react-legacy"
+      "name": "svelte-priority"
     }
   ],
   "tests": [
